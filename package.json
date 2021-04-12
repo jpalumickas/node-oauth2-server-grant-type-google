@@ -1,10 +1,15 @@
 {
   "name": "oauth2-server-grant-type-google",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Google grant type for oauth2-server",
   "main": "dist/oauth2-server-grant-type-google.js",
-  "module": "dist/oauth2-server-grant-type-google.modern.js",
-  "exports": "dist/oauth2-server-grant-type-google.modern.js",
+  "module": "dist/oauth2-server-grant-type-google.module.js",
+  "exports": {
+    ".": {
+      "require": "./dist/oauth2-server-grant-type-google.js",
+      "default": "./dist/oauth2-server-grant-type-google.modern.js"
+    }
+  },
   "source": "./src/index.js",
   "files": [
     "dist",
@@ -26,11 +31,12 @@
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "microbundle": "^0.13.0",
+    "oauth2-server": "^3.1.1",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --strict --target node -i src -o dist -f modern,cjs --no-compress",
+    "build": "rimraf dist && microbundle --strict --target node -i src -o dist -f modern,es,cjs --no-compress",
     "dev": "microbundle watch"
   },
   "prettier": {
