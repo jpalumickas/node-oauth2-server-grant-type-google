@@ -23,13 +23,14 @@ class GoogleGrantType extends AbstractGrantType {
       );
     }
 
+    this.validateClientId = this.model.googleGrantType?.validateClientId ?? true;
     const clientId = this.model.googleGrantType?.clientId;
 
     if (clientId) {
       this.clientIds = Array.isArray(clientId) ? clientId : Array(clientId);
     }
 
-    if (!this.clientIds) {
+    if (this.validateClientId && this.clientIds.length === 0) {
       throw new InvalidArgumentError(
         'Invalid argument: Google valid clientId must be provided in options'
       );
@@ -80,9 +81,9 @@ class GoogleGrantType extends AbstractGrantType {
       throw new InvalidTokenError('Google id token is invalid or expired');
     }
 
-    if (!this.clientIds.includes(data.aud)) {
+    if (this.validateClientId && !this.clientIds.includes(data.aud)) {
       throw new InvalidTokenError(
-        'You cannot use this Google id token with this grant type'
+        'You cannot use this Google ID Token with this grant type'
       );
     }
 
