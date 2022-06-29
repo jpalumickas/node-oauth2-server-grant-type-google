@@ -3,15 +3,28 @@ import {
   InvalidArgumentError,
   InvalidRequestError,
   InvalidTokenError,
+  Request,
+  Client,
+  TokenOptions,
+  User,
+  Token,
 } from 'oauth2-server';
 import axios from 'axios';
+import { Model } from './types';
 
 const url = 'https://oauth2.googleapis.com/tokeninfo';
 
-class GoogleGrantType extends AbstractGrantType {
-  constructor(options = {}) {
-    super(options);
+export interface Options extends TokenOptions {
+   model: Model;
+ }
 
+class GoogleGrantType extends AbstractGrantType {
+  model: Model;
+  validateClientId: boolean;
+  clientIds: string[];
+
+  constructor(options: Options) {
+    super(options);
 
     if (!options.model) {
       throw new InvalidArgumentError('Missing parameter: `model`');
@@ -47,7 +60,7 @@ class GoogleGrantType extends AbstractGrantType {
     this.saveToken = this.saveToken.bind(this);
   }
 
-  async handle(request, client) {
+  async handle(request: Request, client: Client) {
     if (!request) {
       throw new InvalidArgumentError('Missing parameter: `request`');
     }
@@ -62,7 +75,7 @@ class GoogleGrantType extends AbstractGrantType {
     return await this.saveToken(user, client, scope);
   }
 
-  async getUser(request) {
+  async getUser(request: Request) {
     const token = request.body.google_id_token;
 
     if (!token) {
@@ -90,19 +103,23 @@ class GoogleGrantType extends AbstractGrantType {
     return await this.model.getUserWithGoogle(data);
   }
 
-  async saveToken(user, client, scope) {
+  async saveToken(user: User, client: Client, scope: string | string[]) {
     const scopeData = await this.validateScope(user, client, scope);
     const accessToken = await this.generateAccessToken(client, user, scope);
     const refreshToken = await this.generateRefreshToken(client, user, scope);
     const accessTokenExpiresAt = this.getAccessTokenExpiresAt();
     const refreshTokenExpiresAt = await this.getRefreshTokenExpiresAt();
 
-    const token = {
+    const token: Token = {
       accessToken,
       accessTokenExpiresAt,
       refreshToken,
       refreshTokenExpiresAt,
-      scope: scopeData,
+      scope: scopeData || [],
+      user: {
+        id: user.id,
+      },
+      client,
     };
 
     return await this.model.saveToken(token, client, user);
