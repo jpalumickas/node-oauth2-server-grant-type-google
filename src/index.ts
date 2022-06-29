@@ -15,16 +15,17 @@ import { Model } from './types';
 const url = 'https://oauth2.googleapis.com/tokeninfo';
 
 export interface Options extends TokenOptions {
-   model: Model;
- }
+  model: Model;
+}
 
 class GoogleGrantType extends AbstractGrantType {
   model: Model;
   validateClientId: boolean;
-  clientIds: string[];
+  clientIds: string[] = [];
 
   constructor(options: Options) {
     super(options);
+    this.model = options.model;
 
     if (!options.model) {
       throw new InvalidArgumentError('Missing parameter: `model`');
@@ -32,11 +33,12 @@ class GoogleGrantType extends AbstractGrantType {
 
     if (!options.model.getUserWithGoogle) {
       throw new InvalidArgumentError(
-        'Invalid argument: model does not implement `getUserWithGoogle()`'
+        'Invalid argument: model does not implement `getUserWithGoogle()`',
       );
     }
 
-    this.validateClientId = this.model.googleGrantType?.validateClientId ?? true;
+    this.validateClientId =
+      this.model.googleGrantType?.validateClientId ?? true;
     const clientId = this.model.googleGrantType?.clientId;
 
     if (clientId) {
@@ -45,13 +47,13 @@ class GoogleGrantType extends AbstractGrantType {
 
     if (this.validateClientId && this.clientIds.length === 0) {
       throw new InvalidArgumentError(
-        'Invalid argument: Google valid clientId must be provided in options'
+        'Invalid argument: Google valid clientId must be provided in options',
       );
     }
 
     if (!options.model.saveToken) {
       throw new InvalidArgumentError(
-        'Invalid argument: model does not implement `saveToken()`'
+        'Invalid argument: model does not implement `saveToken()`',
       );
     }
 
@@ -96,7 +98,7 @@ class GoogleGrantType extends AbstractGrantType {
 
     if (this.validateClientId && !this.clientIds.includes(data.aud)) {
       throw new InvalidTokenError(
-        'You cannot use this Google ID Token with this grant type'
+        'You cannot use this Google ID Token with this grant type',
       );
     }
 

@@ -10,6 +10,7 @@
       "default": "./dist/oauth2-server-grant-type-google.modern.mjs"
     }
   },
+  "types": "dist/index.d.ts",
   "source": "./src/index.ts",
   "files": [
     "dist",
@@ -29,7 +30,6 @@
     "oauth2-server": "3.x"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.18.6",
     "@types/oauth2-server": "^3.0.13",
     "microbundle": "^0.15.0",
     "oauth2-server": "^3.1.1",
@@ -44,7 +44,7 @@
     "printWidth": 80,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "all"
   },
   "keywords": [
     "oauth2",
