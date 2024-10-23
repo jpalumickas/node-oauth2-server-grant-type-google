@@ -25,7 +25,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^1.7.7"
   },
   "peerDependencies": {
     "oauth2-server": "3.x"
