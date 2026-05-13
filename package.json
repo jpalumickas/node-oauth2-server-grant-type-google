@@ -17,7 +17,10 @@
     "dist",
     "src"
   ],
-  "repository": "https://github.com/jpalumickas/node-oauth2-server-grant-type-google",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jpalumickas/node-oauth2-server-grant-type-google.git"
+  },
   "author": {
     "name": "Justas Palumickas",
     "email": "jpalumickas@gmail.com",
