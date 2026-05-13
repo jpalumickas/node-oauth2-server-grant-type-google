@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
 export default defineConfig({
   clean: true,
@@ -7,5 +7,9 @@ export default defineConfig({
   format: ['cjs', 'esm'],
   minify: true,
   sourcemap: true,
-  external: ['ws'],
+  deps: {
+    neverBundle: ['ws'],
+  },
+  target: false,
+  exports: true,
 });
