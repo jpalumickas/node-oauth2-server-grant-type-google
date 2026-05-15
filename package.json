@@ -1,6 +1,6 @@
 {
   "name": "oauth2-server-grant-type-google",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Google grant type for @node-oauth/oauth2-server",
   "type": "module",
   "main": "./dist/index.cjs",
