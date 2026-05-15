@@ -5,23 +5,18 @@ Adds Google grant type for [@node-oauth/oauth2-server][oauth2-server]
 ## Installation
 
 Using pnpm
+
 ```sh
 pnpm add oauth2-server-grant-type-google
 ```
 
-Using Yarn
-```sh
-yarn add oauth2-server-grant-type-google
-```
-
-Using NPM
+Using npm
 
 ```sh
 npm install oauth2-server-grant-type-google
 ```
 
 ## Usage
-
 
 Add `getUserWithGoogle` to [@node-oauth/oauth2-server][oauth2-server] model.
 
