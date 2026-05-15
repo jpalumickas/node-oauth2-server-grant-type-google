@@ -25,6 +25,10 @@
     "type": "git",
     "url": "git+https://github.com/jpalumickas/node-oauth2-server-grant-type-google.git"
   },
+  "homepage": "https://github.com/jpalumickas/node-oauth2-server-grant-type-google#readme",
+  "bugs": {
+    "url": "https://github.com/jpalumickas/node-oauth2-server-grant-type-google/issues"
+  },
   "author": {
     "name": "Justas Palumickas",
     "email": "jpalumickas@gmail.com",
@@ -46,7 +50,12 @@
     "dev": "tsdown --watch",
     "format": "oxfmt src",
     "format:check": "oxfmt --check src",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm typecheck && pnpm build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "engines": {
     "node": ">=20"
