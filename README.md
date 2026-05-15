@@ -1,8 +1,13 @@
 # OAuth2 Server Google Grant Type
 
-Adds Google grant type for [oauth2-server][oauth2-server]
+Adds Google grant type for [@node-oauth/oauth2-server][oauth2-server]
 
 ## Installation
+
+Using pnpm
+```sh
+pnpm add oauth2-server-grant-type-google
+```
 
 Using Yarn
 ```sh
@@ -18,7 +23,7 @@ npm install oauth2-server-grant-type-google
 ## Usage
 
 
-Add `getUserWithGoogle` to [oauth2-server] model.
+Add `getUserWithGoogle` to [@node-oauth/oauth2-server][oauth2-server] model.
 
 ```js
   const getUserWithGoogle = async (googleData) => {
@@ -30,16 +35,16 @@ Add `getUserWithGoogle` to [oauth2-server] model.
   };
 ```
 
-Add Google grant type to `extendedGrantTypes` in [oauth2-server] options:
+Add Google grant type to `extendedGrantTypes` in [@node-oauth/oauth2-server][oauth2-server] options:
 
 ```js
-  import GoogleGrantType from 'oauth2-server-grant-type-google';
+  import { GoogleGrantType } from 'oauth2-server-grant-type-google';
 
   const options = {
     model: ...,
     extendedGrantTypes: {
       google: GoogleGrantType,
-    }
+    },
     requireClientAuthentication: {
       google: false,
     },
@@ -74,4 +79,4 @@ Post request to `/oauth/token` with `google` grant type and provided id token:
 
 The package is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-[oauth2-server]: https://github.com/oauthjs/node-oauth2-server
+[oauth2-server]: https://github.com/node-oauth/node-oauth2-server

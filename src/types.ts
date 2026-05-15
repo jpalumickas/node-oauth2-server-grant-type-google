@@ -1,10 +1,11 @@
-import {
+import type {
   AuthorizationCodeModel,
   ClientCredentialsModel,
   RefreshTokenModel,
   PasswordModel,
   ExtensionModel,
-} from 'oauth2-server';
+  User,
+} from '@node-oauth/oauth2-server';
 
 type Oauth2ServerModel =
   | AuthorizationCodeModel
@@ -13,10 +14,12 @@ type Oauth2ServerModel =
   | PasswordModel
   | ExtensionModel;
 
-type GoogleTokenData = {
+export type GoogleTokenData = {
   name: string;
   email: string;
   sub: string;
+  aud: string;
+  [key: string]: unknown;
 };
 
 export type Model = Oauth2ServerModel & {
@@ -24,5 +27,5 @@ export type Model = Oauth2ServerModel & {
     clientId: string | string[];
     validateClientId?: boolean;
   };
-  getUserWithGoogle: (data: GoogleTokenData) => any;
+  getUserWithGoogle: (data: GoogleTokenData) => Promise<User>;
 };
